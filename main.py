@@ -8,5 +8,9 @@ class MainView(MethodView):
     def get(self):
         return flask.render_template("index.html")
 
+if __name__ == "__main__":
+    app.run(
+        port=7777
+    )
 
-        
+

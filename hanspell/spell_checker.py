@@ -79,7 +79,7 @@ def check(text):
     html = data['message']['result']['html']
     result = {
         'result': True,
-        'original': _remove_tags(text)  # text,
+        'original': _remove_tags(text),  # text,
         'checked': _remove_tags(html),
         'errors': data['message']['result']['errata_count'],
         'time': passed_time,

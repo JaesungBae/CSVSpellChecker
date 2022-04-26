@@ -1,7 +1,18 @@
 {% extends  "base.html" %}
 {% block body %}
-    <h1> Welcome!</h1>
+    <!-- <h1> Welcome!</h1>
     <div>
         <img src="aaa.png">
+    </div> -->
+    <div>
+        <h1>Hello! This is Korean Spell Checker</h1>
     </div>
+    <div>
+        CSV 파일을 업로드 해주세요:
+        <form method=post enctype=multipart/form-data>
+            <input type=file name=file>
+            <input type=submit value=Upload>
+        </form>
+    </div>
+    
 {% endblock %}

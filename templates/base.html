@@ -8,20 +8,15 @@
         
     </head>
     <body>
-        <div>
-            <h1>Hello! This is Korean Spell Checker</h1>
-        </div>
-        <div>
-            CSV 파일을 업로드 해주세요:
-            <form method=post enctype=multipart/form-data>
-                <input type=file name=file>
-                <input type=submit value=Upload>
-            </form>
-        </div>
+        {% block body %}{% endblock %}
+        
         <!-- <a href="{{url_for("test3")}}">Test 1</a> -->
+        
+    </body>
+    <footer>
         <div>
             Author: Jae-Sung Bae (bjs2279@gmail.com)
         </div>
-    </body>
+    </footer>
 
 </html>

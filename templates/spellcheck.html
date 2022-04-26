@@ -1,0 +1,18 @@
+{% extends  "base.html" %}
+{% block body %}
+    <h1> Spell Checking [{{adict["cur_idx"]}}/{{adict["max_idx"]}}]</h1>
+
+    <div>
+        Original:
+        <br>
+        {{ adict["original"] }}
+    </div>
+    <div>
+        Results:
+        <br>
+        {{ adict["checked"] }}
+    </div>
+    <div>
+        <img src="aaa.png">
+    </div>
+{% endblock %}

@@ -6,6 +6,8 @@ from werkzeug.utils import secure_filename
 import csv
 import pandas as pd
 
+from hanspell import spell_checker
+
 app = Flask(__name__)
 
 class MainView(MethodView):
@@ -19,28 +21,42 @@ class MainView(MethodView):
 
         col_names = ['input']
         csvData = pd.read_csv("current_processing_file.csv", names=col_names, header=None, encoding='cp949')
-        print(len(csvData))
-        for i, row in csvData.iterrows():
-            print(i, row['input'])
-            app.add_url_rule(
-                "/processing{}/".format(i),
-                view_func=SpellCheckerView.as_view(
-                    "processing{}".format(i),
-                    max_idx=len(csvData),
-                    cur_idx=i
-                ),
-                methods=["GET", "POST"]
-            )
-        return flask.redirect(flask.url_for('processing0'))
+        if len(csvData) > 0:
+            for i, row in csvData.iterrows():
+                print(i, row['input'])
+                app.add_url_rule(
+                    "/processing{}/".format(i),
+                    view_func=SpellCheckerView.as_view(
+                        "processing{}".format(i),
+                        max_idx=len(csvData),
+                        cur_idx=i,
+                        input=row
+                    ),
+                    methods=["GET", "POST"]
+                )
+            return flask.redirect(flask.url_for('processing0'))
+        else:
+            return "No text in csv file"
+
     
 
 class SpellCheckerView(MethodView):
-    def __init__(self, max_idx, cur_idx):
+    def __init__(self, max_idx, cur_idx, input):
         self.max_idx = max_idx
         self.cur_idx = cur_idx
+        self.input = input
     
     def get(self):
-        return "001"
+        adict = dict()
+        result = spell_checker.check(self.input)
+        result_dict = result.as_dict()
+        for k, v in result_dict.items():
+            print(k, v)
+        adict['cur_idx'] = self.cur_idx + 1
+        adict['max_idx'] = self.max_idx
+        adict['original'] = result_dict['original']
+        adict['checked'] = result_dict['checked']
+        return flask.render_template("spellcheck.html", adict=adict, return_url='/processing{}/'.format(self.cur_idx))
     
     def post(self):
         if self.cur_idx + 1 >= self.max_idx:

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            SpellChecker
+        </title>
+        <link rel="stylesheet" type="text/css" href="/static/style.css" />
+        
+    </head>
+    <body>
+        <div>
+            <h1>Hello! This is Korean Spell Checker</h1>
+        </div>
+        <div>
+            CSV 파일을 업로드 해주세요:
+            <form method=post enctype=multipart/form-data>
+                <input type=file name=file>
+                <input type=submit value=Upload>
+            </form>
+        </div>
+        <!-- <a href="{{url_for("test3")}}">Test 1</a> -->
+        <div>
+            Author: Jae-Sung Bae (bjs2279@gmail.com)
+        </div>
+    </body>
+
+</html>
